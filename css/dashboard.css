@@ -1,0 +1,299 @@
+/* Dashboard specific layouts inheriting from auth.css variables */
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.small-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.sidebar .brand {
+    margin-bottom: 2.5rem;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar .brand h2 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 0.875rem 1rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.topbar {
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.greeting h1 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.greeting p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.avatar {
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+.tenant-avatar {
+    background: #10B981;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.logout-link {
+    color: var(--error);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s;
+}
+
+.logout-link:hover {
+    opacity: 0.8;
+}
+
+/* Workspace Layout */
+.content-area {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card, .stat-card, .alert-card {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.stat-card h3 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+}
+
+.dashboard-grid-2 {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.alert-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.alert-card.warning {
+    background: linear-gradient(135deg, #FEF3C7, transparent);
+    border-color: #FDE68A;
+}
+
+.alert-card.danger {
+    background: linear-gradient(135deg, #FEE2E2, transparent);
+    border-color: #FECACA;
+}
+
+.alert-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.alert-card .stat-value {
+    margin: 0.75rem 0 1.25rem 0;
+    font-size: 1.5rem;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 0.625rem 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    background: white;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: background 0.2s;
+}
+
+.btn-outline:hover {
+    background: var(--surface-hover);
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Typography Utilities */
+.text-success { color: #10B981; }
+.text-warning { color: #F59E0B; }
+
+/* Tenant specific Elements */
+.menu-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+.menu-list li {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.menu-list li:last-child { border-bottom: none; }
+.menu-list strong { color: var(--text-primary); display: inline-block; }
+
+.notice-item {
+    padding: 1.25rem;
+    background: var(--bg-color);
+    border-radius: 12px;
+    margin-top: 1.25rem;
+    border: 1px solid var(--border);
+}
+.notice-item p { margin: 0.5rem 0; color: var(--text-primary); font-size: 0.9375rem; line-height: 1.5; }
+.badge { 
+    background: var(--border); 
+    padding: 0.25rem 0.625rem; 
+    border-radius: 20px; 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.badge.new { background: rgba(16, 185, 129, 0.15); color: #059669; }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+    }
+    .dashboard-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

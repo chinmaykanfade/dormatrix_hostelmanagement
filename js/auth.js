@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const user = users.find(u => u.email === email && u.password === password && u.role === role);
 
                 if (user) {
-                    loginUser(user, `module2_dashboard_${role}.html`);
+                    loginUser(user, `${role}_dashboard.html`);
                 } else {
                     showError(`Invalid ${role} credentials. Please try again or sign up.`);
                 }
@@ -92,6 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('dormatrix_auth', 'true');
         
         alert(`Successfully logged in as ${userData.name} (${userData.role}). Redirecting...`);
-        // window.location.href = redirectUrl; 
+        window.location.href = redirectUrl; 
     }
 });

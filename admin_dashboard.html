@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css"> <!-- Import color vars -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="admin_dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="#" class="nav-item">Room Management</a>
+                <a href="#" class="nav-item">Gate Passes</a>
+                <a href="#" class="nav-item">Complaints</a>
+                <a href="#" class="nav-item">Menu & Voting</a>
+                <a href="#" class="nav-item">Visitor Log</a>
+                <a href="#" class="nav-item">Notice Board</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Admin Overview</h1>
+                    <p>Welcome back, <span id="userName">Hostel Warden</span></p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span id="userRole">Admin</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- Top Stats Grid -->
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(79, 70, 229, 0.1); color: var(--primary);">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        </div>
+                        <h3>Total Rooms</h3>
+                        <div class="stat-value">120</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3>Occupied Rooms</h3>
+                        <div class="stat-value">98</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h3>Total Tenants</h3>
+                        <div class="stat-value">185</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(236, 72, 153, 0.1); color: var(--secondary);">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3>Visitors Today</h3>
+                        <div class="stat-value">12</div>
+                    </div>
+                </div>
+
+                <!-- Action Items and Charts -->
+                <div class="dashboard-grid-2">
+                    <div class="left-col">
+                        <div class="alert-card warning">
+                            <div class="alert-content">
+                                <h3>Pending Gate Passes</h3>
+                                <div class="stat-value">5 requests</div>
+                                <a href="#" class="btn-outline">Review Now</a>
+                            </div>
+                        </div>
+                        <div class="alert-card danger mt-4">
+                            <div class="alert-content">
+                                <h3>Open Complaints</h3>
+                                <div class="stat-value">2 unresolved</div>
+                                <a href="#" class="btn-outline">View SLAs</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="right-col">
+                        <div class="chart-container card">
+                            <h3>Menu Voting Results</h3>
+                            <div style="height: 300px; position: relative;">
+                                <canvas id="votingChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>
