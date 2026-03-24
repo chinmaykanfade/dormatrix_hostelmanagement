@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Gate Passes | Admin | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css"> <!-- Import color vars -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .gatepass-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .gatepass-container h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-Pending { background: #fef3c7; color: #d97706; }
+        .status-Approved { background: #d1fae5; color: #059669; }
+        .status-Rejected { background: #fee2e2; color: #dc2626; }
+        
+        .action-btn {
+            border: none;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 0.25rem;
+            transition: opacity 0.2s;
+        }
+        .action-btn:hover { opacity: 0.9; }
+        .approve-btn { background: #10B981; color: white; }
+        .reject-btn { background: #EF4444; color: white; }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .filter-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="admin_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="admin_rooms.html" class="nav-item">Room Management</a>
+                <a href="admin_gatepass.html" class="nav-item active">Gate Passes</a>
+                <a href="#" class="nav-item">Complaints</a>
+                <a href="#" class="nav-item">Menu & Voting</a>
+                <a href="#" class="nav-item">Visitor Log</a>
+                <a href="#" class="nav-item">Notice Board</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Manage Gate Passes</h1>
+                    <p>Review and approve tenant leave requests</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span id="userRole">Admin</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="gatepass-container">
+                    <h2>
+                        Gate Pass Requests
+                    </h2>
+                    
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="All">All</button>
+                        <button class="filter-btn" data-filter="Pending">Pending</button>
+                        <button class="filter-btn" data-filter="Approved">Approved</button>
+                        <button class="filter-btn" data-filter="Rejected">Rejected</button>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tenant Name</th>
+                                <th>Date</th>
+                                <th>Timing</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminGpTableBody">
+                            <!-- Rows will be populated via JS -->
+                            <tr><td colspan="6" style="text-align: center;">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/admin_gatepass.js"></script>
+</body>
+</html>

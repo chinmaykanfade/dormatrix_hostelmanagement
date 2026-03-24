@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Pass | Tenant | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css"> <!-- Import color vars -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .gatepass-form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .gatepass-form-container h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-Pending { background: #fef3c7; color: #d97706; }
+        .status-Approved { background: #d1fae5; color: #059669; }
+        .status-Rejected { background: #fee2e2; color: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo" style="background: #10B981;"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="tenant_dashboard.html" class="nav-item">My Portal</a>
+                <a href="tenant_gatepass.html" class="nav-item active">Gate Pass</a>
+                <a href="#" class="nav-item">File Complaint</a>
+                <a href="#" class="nav-item">Meal Voting</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Gate Pass</h1>
+                    <p>Request permission to leave the hostel outside of regular hours</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar tenant-avatar">
+                        <span id="userRole">Tenant</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="gatepass-form-container">
+                    <h2>New Gate Pass Request</h2>
+                    <form id="gatePassForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gpDate">Date</label>
+                                <input type="date" id="gpDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gpOutTime">Out Time</label>
+                                <input type="time" id="gpOutTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gpInTime">Expected In Time</label>
+                                <input type="time" id="gpInTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label for="gpReason">Reason for Leave</label>
+                            <textarea id="gpReason" required placeholder="Provide a valid reason..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" id="submitGpBtn">Submit Request</button>
+                    </form>
+                </div>
+
+                <h2>My Requests</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Out Time</th>
+                            <th>In Time</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gpTableBody">
+                        <!-- Rows will be populated via JS -->
+                        <tr><td colspan="5" style="text-align: center;">Loading requests...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/tenant_gatepass.js"></script>
+</body>
+</html>
