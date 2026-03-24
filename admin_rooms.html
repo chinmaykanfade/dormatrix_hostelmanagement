@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Management | Admin Dashboard</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/rooms.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="admin_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="admin_rooms.html" class="nav-item active">Room Management</a>
+                <a href="#" class="nav-item">Gate Passes</a>
+                <a href="#" class="nav-item">Complaints</a>
+                <a href="#" class="nav-item">Menu & Voting</a>
+                <a href="#" class="nav-item">Visitor Log</a>
+                <a href="#" class="nav-item">Notice Board</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Room Management</h1>
+                    <p>Overview of all hostel accommodation</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span id="userRole">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h2>Manage Rooms</h2>
+                    <button class="btn-primary" id="openAddRoomModal">
+                        + Add New Room
+                    </button>
+                </div>
+
+                <!-- Rooms Table Card -->
+                <div class="card table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Room Number</th>
+                                <th>Capacity</th>
+                                <th>Occupants</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="roomsTableBody">
+                            <!-- Populated via rooms.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals (Add/Edit Room) -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal-card">
+            <h3 id="modalTitle">Add New Room</h3>
+            <form id="roomForm">
+                <input type="hidden" id="editRoomId">
+                <div class="form-group">
+                    <label>Room Number</label>
+                    <input type="text" id="roomNumberInput" required placeholder="e.g. B-202">
+                </div>
+                <div class="form-group">
+                    <label>Capacity</label>
+                    <input type="number" id="roomCapacityInput" required min="1" max="10" placeholder="2">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-outline" id="closeModalBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="./js/rooms.js"></script>
+</body>
+</html>
