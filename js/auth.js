@@ -1,62 +1,66 @@
+function initializeDB() {
+    if (!localStorage.getItem('dormatrix_users')) {
+        const defaultUsers = [
+            { name: 'Hostel Warden', email: 'admin@dormatrix.com', password: 'admin123', role: 'admin' },
+            { name: 'John Student', email: 'tenant@dormatrix.com', password: 'tenant123', role: 'tenant', room: 'A-101' }
+        ];
+        localStorage.setItem('dormatrix_users', JSON.stringify(defaultUsers));
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initializeDB();
+
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
     const submitBtn = document.getElementById('submitBtn');
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoader = document.getElementById('btnLoader');
 
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Hide previous error
-        errorMessage.style.display = 'none';
-        errorMessage.classList.remove('shake');
+    if(loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            errorMessage.style.display = 'none';
+            errorMessage.classList.remove('shake');
 
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const role = document.querySelector('input[name="role"]:checked').value;
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const role = document.querySelector('input[name="role"]:checked').value;
 
-        // Basic frontend validation
-        if (!email || !password) {
-            showError('Please fill in both email and password.');
-            return;
-        }
-
-        if (!validateEmail(email)) {
-            showError('Please enter a valid email address.');
-            return;
-        }
-
-        // Simulate network loading
-        startLoading();
-
-        setTimeout(() => {
-            stopLoading();
-
-            // Mock login logic mapped to requirements
-            if (role === 'admin') {
-                if (email === 'admin@dormatrix.com' && password === 'admin123') {
-                    // Success, mock authentication by saving to localStorage
-                    loginUser({ role: 'admin', email, name: 'Hostel Warden' }, 'module2_dashboard_admin.html');
-                } else {
-                    showError('Invalid admin credentials. (Hint: admin@dormatrix.com / admin123)');
-                }
-            } else {
-                if (email === 'tenant@dormatrix.com' && password === 'tenant123') {
-                    // Success, mock authentication by saving to localStorage
-                    loginUser({ role: 'tenant', email, name: 'John Student', room: 'A-101' }, 'module2_dashboard_tenant.html');
-                } else {
-                    showError('Invalid tenant credentials. (Hint: tenant@dormatrix.com / tenant123)');
-                }
+            if (!email || !password) {
+                showError('Please fill in both email and password.');
+                return;
             }
-        }, 1200); // 1.2s realistic loading delay
-    });
+
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+
+            startLoading();
+
+            setTimeout(() => {
+                stopLoading();
+
+                // Fetch database from localStorage
+                const users = JSON.parse(localStorage.getItem('dormatrix_users'));
+                
+                // Find matching user
+                const user = users.find(u => u.email === email && u.password === password && u.role === role);
+
+                if (user) {
+                    loginUser(user, `module2_dashboard_${role}.html`);
+                } else {
+                    showError(`Invalid ${role} credentials. Please try again or sign up.`);
+                }
+            }, 1200);
+        });
+    }
 
     function showError(msg) {
         errorMessage.textContent = msg;
         errorMessage.style.display = 'block';
-        
-        // Trigger reflow to restart animation
         void errorMessage.offsetWidth;
         errorMessage.classList.add('shake');
     }
@@ -79,13 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loginUser(userData, redirectUrl) {
-        // Persist session locally
-        localStorage.setItem('dormatrix_user', JSON.stringify(userData));
+        localStorage.setItem('dormatrix_user', JSON.stringify({
+            name: userData.name,
+            email: userData.email,
+            role: userData.role,
+            room: userData.room || null
+        }));
         localStorage.setItem('dormatrix_auth', 'true');
         
-        // Because we don't have the dashboards yet, just alert for now or try to redirect
-        // Later modules will have these pages.
         alert(`Successfully logged in as ${userData.name} (${userData.role}). Redirecting...`);
-        // window.location.href = redirectUrl; // Uncomment when pages exist
+        // window.location.href = redirectUrl; 
     }
 });

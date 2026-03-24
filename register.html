@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Dormatrix - Unified Hostel Operations Platform</title>
+    <title>Create Account | Dormatrix</title>
     <!-- Use Inter font for a modern look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/auth.css">
-    <meta name="description" content="Digitizing hostel operations seamlessly.">
 </head>
 <body>
     <div class="split-container">
@@ -19,12 +18,11 @@
                 <div class="logo-icon"></div>
                 <h1>Dormatrix</h1>
             </div>
-            <div class="hero-content">
-                <h2>Hostel operations, <br>simplified.</h2>
-                <p>Digitizing your room allocation, gate passes, visitor logs, and complaints all in one secure place.</p>
+            <div class="hero-content" style="margin-top: 4rem;">
+                <h2>Join the platform.</h2>
+                <p>Register as a Tenant to manage your accommodation, or as an Admin to oversee operations.</p>
             </div>
             
-            <!-- Dynamic CSS decorations -->
             <div class="decorative-circles">
                 <div class="circle circle-1"></div>
                 <div class="circle circle-2"></div>
@@ -32,63 +30,59 @@
             </div>
         </div>
         
-        <!-- Right Login Panel -->
+        <!-- Right Registration Form Panel -->
         <div class="right-panel">
-            <div class="login-container">
-                <h2>Welcome Back</h2>
-                <p class="subtitle">Please sign in to your dashboard</p>
+            <div class="login-container" style="max-height: 95vh; overflow-y: auto;">
+                <h2>Create an Account</h2>
+                <p class="subtitle">Set up your new profile</p>
                 
-                <form id="loginForm" novalidate>
+                <form id="registerForm" novalidate>
                     <!-- Role Toggler -->
-                    <div class="role-selector" role="radiogroup" aria-label="Select User Role">
+                    <div class="role-selector" role="radiogroup">
                         <input type="radio" id="roleTenant" name="role" value="tenant" checked>
-                        <label for="roleTenant" class="role-btn">
-                            Tenant
-                        </label>
+                        <label for="roleTenant" class="role-btn">Tenant</label>
                         
                         <input type="radio" id="roleAdmin" name="role" value="admin">
-                        <label for="roleAdmin" class="role-btn">
-                            Admin
-                        </label>
-                        <!-- Animated background pill -->
+                        <label for="roleAdmin" class="role-btn">Admin</label>
                         <div class="role-highlight"></div>
                     </div>
 
-                    <!-- Input Fields -->
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required placeholder="John Doe">
+                    </div>
+
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" required placeholder="name@example.com" autocomplete="email">
+                        <input type="email" id="email" required placeholder="name@example.com">
+                    </div>
+                    
+                    <div class="form-group" id="roomGroup">
+                        <label for="roomNumber">Room Number (Optional)</label>
+                        <input type="text" id="roomNumber" placeholder="e.g. A-101">
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password">
-                        </div>
+                        <label for="password">Create Password</label>
+                        <input type="password" id="password" required placeholder="••••••••">
                     </div>
 
-                    <div class="forgot-password">
-                        <a href="#">Forgot password?</a>
-                    </div>
-
-                    <!-- Submit Button -->
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <span class="btn-text">Sign In</span>
+                        <span class="btn-text">Sign Up</span>
                         <div class="loader" id="btnLoader"></div>
                     </button>
                     
-                    <!-- Error Message Container -->
                     <div id="errorMessage" class="error-message" role="alert"></div>
-
-                    <!-- Sign Up Link -->
+                    
+                    <!-- Login Link -->
                     <div class="signup-link">
-                        Don't have an account? <a href="register.html">Sign up</a>
+                        Already have an account? <a href="index.html">Sign in</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     
-    <script src="./js/auth.js"></script>
+    <script src="./js/register.js"></script>
 </body>
 </html>
