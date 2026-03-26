@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Menu & Voting | Tenant | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .menu-banner {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .meal-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .meal-info h3 { margin: 0 0 0.5rem 0; color: #1e293b; }
+        .meal-info p { margin: 0; color: #64748b; font-size: 0.95rem; }
+        
+        .rating-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        .star-rating input { display: none; }
+        .star-rating label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            transition: color 0.2s;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #fbbf24;
+        }
+        .rate-btn {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .rate-btn:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo" style="background: #10B981;"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="tenant_dashboard.html" class="nav-item">My Portal</a>
+                <a href="tenant_gatepass.html" class="nav-item">Gate Pass</a>
+                <a href="tenant_complaint.html" class="nav-item">File Complaint</a>
+                <a href="tenant_menu.html" class="nav-item active">Meal Menu & Voting</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Today's Menu</h1>
+                    <p>Check what's cooking and share your feedback</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar tenant-avatar">
+                        <span id="userRole">Tenant</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="menu-banner">
+                    <h2 style="margin:0 0 0.5rem 0; color:white;" id="todayDateStr">Loading Menu...</h2>
+                    <p style="margin:0; opacity:0.9;">See below for today's meals served in the mess.</p>
+                </div>
+
+                <div id="noMenuMessage" style="display:none; text-align:center; padding: 2rem; background:white; border-radius:12px;">
+                    <h3>No Menu Available</h3>
+                    <p>The admin hasn't uploaded a menu for today yet.</p>
+                </div>
+
+                <div id="menuContent" style="display:none;">
+                    <!-- Breakfast -->
+                    <div class="meal-card">
+                        <div class="meal-info">
+                            <h3>Breakfast</h3>
+                            <p id="bItems">Items...</p>
+                        </div>
+                        <div class="rating-group">
+                            <form class="voteForm" data-meal="Breakfast">
+                                <div class="star-rating">
+                                    <input type="radio" id="star5-b" name="rating-b" value="5"><label for="star5-b">★</label>
+                                    <input type="radio" id="star4-b" name="rating-b" value="4"><label for="star4-b">★</label>
+                                    <input type="radio" id="star3-b" name="rating-b" value="3"><label for="star3-b">★</label>
+                                    <input type="radio" id="star2-b" name="rating-b" value="2"><label for="star2-b">★</label>
+                                    <input type="radio" id="star1-b" name="rating-b" value="1"><label for="star1-b">★</label>
+                                </div>
+                                <button type="submit" class="rate-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Lunch -->
+                    <div class="meal-card">
+                        <div class="meal-info">
+                            <h3>Lunch</h3>
+                            <p id="lItems">Items...</p>
+                        </div>
+                        <div class="rating-group">
+                            <form class="voteForm" data-meal="Lunch">
+                                <div class="star-rating">
+                                    <input type="radio" id="star5-l" name="rating-l" value="5"><label for="star5-l">★</label>
+                                    <input type="radio" id="star4-l" name="rating-l" value="4"><label for="star4-l">★</label>
+                                    <input type="radio" id="star3-l" name="rating-l" value="3"><label for="star3-l">★</label>
+                                    <input type="radio" id="star2-l" name="rating-l" value="2"><label for="star2-l">★</label>
+                                    <input type="radio" id="star1-l" name="rating-l" value="1"><label for="star1-l">★</label>
+                                </div>
+                                <button type="submit" class="rate-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Dinner -->
+                    <div class="meal-card">
+                        <div class="meal-info">
+                            <h3>Dinner</h3>
+                            <p id="dItems">Items...</p>
+                        </div>
+                        <div class="rating-group">
+                            <form class="voteForm" data-meal="Dinner">
+                                <div class="star-rating">
+                                    <input type="radio" id="star5-d" name="rating-d" value="5"><label for="star5-d">★</label>
+                                    <input type="radio" id="star4-d" name="rating-d" value="4"><label for="star4-d">★</label>
+                                    <input type="radio" id="star3-d" name="rating-d" value="3"><label for="star3-d">★</label>
+                                    <input type="radio" id="star2-d" name="rating-d" value="2"><label for="star2-d">★</label>
+                                    <input type="radio" id="star1-d" name="rating-d" value="1"><label for="star1-d">★</label>
+                                </div>
+                                <button type="submit" class="rate-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/tenant_menu.js"></script>
+</body>
+</html>

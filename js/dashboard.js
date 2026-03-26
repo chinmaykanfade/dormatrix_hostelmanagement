@@ -91,4 +91,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 5. Render Dynamic Notices (for Tenant Dashboard)
+    const noticeBoardEl = document.getElementById('tenantNoticeBoard');
+    if (noticeBoardEl) {
+        fetch('http://localhost:5000/api/notices')
+            .then(res => res.json())
+            .then(notices => {
+                noticeBoardEl.innerHTML = '<h3>Notice Board</h3>';
+                if (notices.length === 0) {
+                    noticeBoardEl.innerHTML += '<div style="text-align:center; padding: 1rem; color:#64748b;">No new notices.</div>';
+                    return;
+                }
+                
+                // Show up to 5 most recent
+                notices.slice(0, 5).forEach((n, index) => {
+                    const badge = index === 0 ? '<span class="badge new">New</span>' : '<span class="badge">Info</span>';
+                    const dateStr = new Date(n.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+                    
+                    noticeBoardEl.innerHTML += `
+                        <div class="notice-item">
+                            ${badge}
+                            <p><strong>${n.title}</strong><br>${n.content}</p>
+                            <small>${dateStr} • By ${n.author}</small>
+                        </div>
+                    `;
+                });
+            })
+            .catch(err => {
+                console.error('Error fetching notices:', err);
+                noticeBoardEl.innerHTML = '<h3>Notice Board</h3><div style="text-align:center; padding: 1rem; color:red;">Connection error.</div>';
+            });
+    }
+
+    // 6. Notifications (Admin trigger Rent Reminders)
+    const sendRemindersBtn = document.getElementById('sendRemindersBtn');
+    if (sendRemindersBtn) {
+        sendRemindersBtn.addEventListener('click', async () => {
+            const originalText = sendRemindersBtn.innerHTML;
+            sendRemindersBtn.innerHTML = 'Sending...';
+            sendRemindersBtn.disabled = true;
+
+            try {
+                const res = await fetch('http://localhost:5000/api/notifications/remind-rent', {
+                    method: 'POST'
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    alert(`Success: ${data.message} (${data.count} SMS sent via simulation)`);
+                } else {
+                    alert('Error sending reminders.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Backend connection error.');
+            } finally {
+                sendRemindersBtn.innerHTML = originalText;
+                sendRemindersBtn.disabled = false;
+            }
+        });
+    }
 });

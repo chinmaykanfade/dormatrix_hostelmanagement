@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const gatePassRoutes = require('./routes/gatepassRoutes');
+const complaintRoutes = require('./routes/complaintRoutes');
+const menuRoutes = require('./routes/menuRoutes');
+const visitorRoutes = require('./routes/visitorRoutes');
+const noticeRoutes = require('./routes/noticeRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 
@@ -13,6 +18,11 @@ app.use(express.json());
 
 // Routes
 app.use('/api/gatepass', gatePassRoutes);
+app.use('/api/complaints', complaintRoutes);
+app.use('/api/menu', menuRoutes);
+app.use('/api/visitors', visitorRoutes);
+app.use('/api/notices', noticeRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // MongoDB connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dormatrix';

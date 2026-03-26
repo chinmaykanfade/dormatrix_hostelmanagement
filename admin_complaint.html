@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Complaints | Admin | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .complaint-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .complaint-container h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-Pending { background: #fef3c7; color: #d97706; }
+        .status-In-Progress { background: #dbeafe; color: #2563eb; }
+        .status-Resolved { background: #d1fae5; color: #059669; }
+        .status-Escalated { background: #fee2e2; color: #dc2626; color: white; animation: pulse 2s infinite; }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        .priority-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        .priority-High { background: #fee2e2; color: #dc2626; }
+        .priority-Medium { background: #fef3c7; color: #d97706; }
+        .priority-Low { background: #f1f5f9; color: #475569; }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .filter-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .action-select {
+            padding: 0.35rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+        }
+        .desc-text {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 4px;
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="admin_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="admin_rooms.html" class="nav-item">Room Management</a>
+                <a href="admin_gatepass.html" class="nav-item">Gate Passes</a>
+                <a href="admin_complaint.html" class="nav-item active">Complaints</a>
+                <a href="#" class="nav-item">Menu & Voting</a>
+                <a href="#" class="nav-item">Visitor Log</a>
+                <a href="#" class="nav-item">Notice Board</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Manage Complaints</h1>
+                    <p>Track issues and ensure SLAs are met</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span id="userRole">Admin</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="complaint-container">
+                    <h2>
+                        Tickets Overview
+                    </h2>
+                    
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="All">All</button>
+                        <button class="filter-btn" data-filter="Pending">Pending</button>
+                        <button class="filter-btn" data-filter="In Progress">In Progress</button>
+                        <button class="filter-btn" data-filter="Resolved">Resolved</button>
+                        <button class="filter-btn" style="color:#dc2626;" data-filter="Escalated">Escalated</button>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tenant</th>
+                                <th>Issue & Desc</th>
+                                <th>Priority</th>
+                                <th>SLA Deadline</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminComplaintTableBody">
+                            <tr><td colspan="6" style="text-align: center;">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/admin_complaint.js"></script>
+</body>
+</html>

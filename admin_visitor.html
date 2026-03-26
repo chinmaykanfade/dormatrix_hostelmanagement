@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Log | Admin | Dormatrix</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/auth.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .visitor-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .form-group input {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-Active { background: #dbeafe; color: #2563eb; }
+        .status-Exited { background: #f1f5f9; color: #64748b; }
+        
+        .code-pill {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #334155;
+            letter-spacing: 1px;
+        }
+
+        .exit-btn {
+            background: #f43f5e;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .exit-btn:hover { background: #e11d48; }
+        .exit-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon small-logo"></div>
+                <h2>Dormatrix</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="admin_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="admin_rooms.html" class="nav-item">Room Management</a>
+                <a href="admin_gatepass.html" class="nav-item">Gate Passes</a>
+                <a href="admin_complaint.html" class="nav-item">Complaints</a>
+                <a href="admin_menu.html" class="nav-item">Menu & Voting</a>
+                <a href="admin_visitor.html" class="nav-item active">Visitor Log</a>
+                <a href="#" class="nav-item">Notice Board</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1>Visitor Log</h1>
+                    <p>Track guests and generate secure visitor passes</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span id="userRole">Admin</span>
+                    </div>
+                    <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="visitor-container">
+                    <h2>Add New Visitor</h2>
+                    <form id="visitorForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vName">Visitor Name</label>
+                                <input type="text" id="vName" required placeholder="E.g., Ramesh Kumar">
+                            </div>
+                            <div class="form-group">
+                                <label for="sName">Student Name (Host)</label>
+                                <input type="text" id="sName" required placeholder="E.g., John Student">
+                            </div>
+                            <div class="form-group">
+                                <label for="rNo">Room No</label>
+                                <input type="text" id="rNo" required placeholder="E.g., A-101">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" id="addVisitorBtn">Register Entry & Generate Pass</button>
+                    </form>
+                </div>
+
+                <h2>Visitor Records</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visitor</th>
+                            <th>Host / Room</th>
+                            <th>Entry Time</th>
+                            <th>Pass Code</th>
+                            <th>Status</th>
+                            <th>Action / Exit Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="visitorTableBody">
+                        <tr><td colspan="6" style="text-align: center;">Loading visitors...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    
+    <script src="./js/admin_visitor.js"></script>
+</body>
+</html>
